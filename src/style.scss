@@ -1,0 +1,19 @@
+$color-red: #ff0033;
+$color-purple: #cc00ff;
+$color-dark-purple: #9900ff;
+
+a {
+    display: block;
+    text-decoration: none;
+    color: $color-purple;
+    font-size: responsive;
+    transition: transform 1s;
+}
+
+a:hover {
+    color: $color-dark-purple;
+}
+
+.hello {
+    color: $color-red;
+}
