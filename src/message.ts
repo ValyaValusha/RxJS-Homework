@@ -11,7 +11,7 @@ export default  function greeter(message: string) {
 
 const s = new myAwesomeSubject(2);
 
-s.subscribe((v:any) => console.log('first '+ v));
+s.subscribe({next:(v:any) => console.log('first '+ v), err:() => {}, complete: () => {}});
 
 s.next(1);
 s.next(2);
@@ -32,6 +32,6 @@ s.next(11);
 s.next(12);
 
 
-// myAwesomeObservable().pipe(myFilter('filterString Hii rtzxmL'), switchCase()).subscribe(v => console.log(v));
+myAwesomeObservable().pipe(myFilter('aBcd efg'), switchCase()).subscribe(v => console.log(v));
 
 

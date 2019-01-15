@@ -7,13 +7,13 @@ import {Observable} from 'rxjs'
 
 function myAwesomeObservable () {
     return new Observable((observer) => {
-        setInterval(function(){
+        let interval = setInterval(function(){
             observer.next(getRandomSymbol());
         }, 1000);
         // observer.complete();
         return {
             unsubscribe() {
-                console.log('unsubscribed');
+                clearInterval(interval);
             }
         };
     });

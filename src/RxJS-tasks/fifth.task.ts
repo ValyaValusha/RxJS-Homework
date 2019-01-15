@@ -1,6 +1,7 @@
 //Create your own Subject, which should skip defined amount of emitted values
 
 import {Subject} from "rxjs";
+import { Observer } from "rx";
 
 export class myAwesomeSubject<T> extends Subject<T> {
     public bufferNumber:number;
@@ -12,26 +13,22 @@ export class myAwesomeSubject<T> extends Subject<T> {
     }
 
     // @ts-ignore
-    subscribe(subscriber:any):void{
+    subscribe(subscriber:Subscriber<T>):Subscription{
         subscriber.skip = this.bufferNumber;
         this.observers.push(subscriber);
     }
 
-    next(value:any):void {
-        this.observers.forEach((observer: { (arg0: any): void; skip: number; }) => {
+    next(value:T):void {
+        this.observers.forEach((observer: { next(arg0: any): void; (arg0: any): void; skip: number; }) => {
             if (observer.skip <= 0) {
-                observer(value);
+                if (observer.next) {
+                  observer.next(value);  
+                } else {
+                    observer(value);
+                }
+                
             } else {observer.skip--}
         });
     }
-
-    error(error:any){
-        this.observers.forEach((observer: { error: (arg0: any) => void; }) => observer.error(error));
-    }
-
-    complete() {
-        this.observers.forEach((observer: { complete: () => void; }) => observer.complete());
-    }
-
 }
 
