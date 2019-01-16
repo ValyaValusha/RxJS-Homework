@@ -1,4 +1,4 @@
-import {Observable, Subject, Observer, of, from} from 'rxjs'
+import {Observable, Subject, Observer, of, from, BehaviorSubject} from 'rxjs'
 import {myAwesomeObservable} from './RxJS-tasks/second-task'
 import {myFilter} from './RxJS-tasks/third-task'
 import {switchCase} from './RxJS-tasks/fourth-task'
@@ -9,9 +9,9 @@ export default  function greeter(message: string) {
     return 'Hello, ' + message;
 }
 
-const s = new myAwesomeSubject(2);
+const s = new myAwesomeSubject<number>(2);
 
-s.subscribe({next:(v:any) => console.log('first '+ v), err:() => {}, complete: () => {}});
+s.subscribe((v:any) => console.log('first item' + v), (error:any) => console.log(error), () => console.log('completed'));
 
 s.next(1);
 s.next(2);

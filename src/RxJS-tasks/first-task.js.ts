@@ -46,67 +46,67 @@ class MultipleIterator {
 
 
 //Сhain of responsibility design pattern
-const source$ = range(0, 10);
-source$
-    .pipe(filter(x => x % 2 === 0), map(x => x + x), scan((acc, x) => acc + x, 0))
-    .subscribe(x => console.log(x));
-
-// the decorator pattern 
-
-export class SubjectSubscriber<T> extends Subscriber<T> {
-    constructor(protected destination: Subject<T>) {
-      super(destination);
-    }
-  }
-    
-//    * @class Subject<T>
-//    */
-  export class Subject<T> extends Observable<T> implements SubscriptionLike {
-    
-    [rxSubscriberSymbol]() {
-      return new SubjectSubscriber(this);
-    }
-    
-    observers: Observer<T>[] = [];
-    
-    closed = false;
-    
-    isStopped = false;
-    
-    hasError = false;
-    
-    thrownError: any = null;
-    
-    constructor() {
-      super();
-    } .......
-
-
-
-
-// The singleton pattern
-
-protected getSubject(): Subject<T> {
-    const subject = this._subject;
-    if (!subject || subject.isStopped) {
-      this._subject = this.subjectFactory();
-    }
-    return this._subject;
-  }
-
-  connect(): Subscription {
-    let connection = this._connection;
-    if (!connection) {
-      this._isComplete = false;
-      connection = this._connection = new Subscription();
-      connection.add(this.source
-        .subscribe(new ConnectableSubscriber(this.getSubject(), this)));
-      if (connection.closed) {
-        this._connection = null;
-        connection = Subscription.EMPTY;
-      } else {
-        this._connection = connection;
-      }
-    }
-    return connection;
-  }
+// const source$ = range(0, 10);
+// source$
+//     .pipe(filter(x => x % 2 === 0), map(x => x + x), scan((acc, x) => acc + x, 0))
+//     .subscribe(x => console.log(x));
+//
+// // the decorator pattern
+//
+// export class SubjectSubscriber<T> extends Subscriber<T> {
+//     constructor(protected destination: Subject<T>) {
+//       super(destination);
+//     }
+//   }
+//
+// //    * @class Subject<T>
+// //    */
+//   export class Subject<T> extends Observable<T> implements SubscriptionLike {
+//
+//     [rxSubscriberSymbol]() {
+//       return new SubjectSubscriber(this);
+//     }
+//
+//     observers: Observer<T>[] = [];
+//
+//     closed = false;
+//
+//     isStopped = false;
+//
+//     hasError = false;
+//
+//     thrownError: any = null;
+//
+//     constructor() {
+//       super();
+//     } .......
+//
+//
+//
+//
+// // The singleton pattern
+//
+// protected getSubject(): Subject<T> {
+//     const subject = this._subject;
+//     if (!subject || subject.isStopped) {
+//       this._subject = this.subjectFactory();
+//     }
+//     return this._subject;
+//   }
+//
+//   connect(): Subscription {
+//     let connection = this._connection;
+//     if (!connection) {
+//       this._isComplete = false;
+//       connection = this._connection = new Subscription();
+//       connection.add(this.source
+//         .subscribe(new ConnectableSubscriber(this.getSubject(), this)));
+//       if (connection.closed) {
+//         this._connection = null;
+//         connection = Subscription.EMPTY;
+//       } else {
+//         this._connection = connection;
+//       }
+//     }
+//     return connection;
+//   }
